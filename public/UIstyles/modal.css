@@ -1,0 +1,107 @@
+.loader-overlay {
+    position:absolute;
+    top: 107px;
+    left: 0;
+    width:100%;
+    height: 100%;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.modal {
+    position: fixed;
+    top: 20vh;
+    left: 5%;
+    width: 90%;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    z-index: 1101;
+    animation: slide-down 300ms ease-out forwards;
+}
+
+.modal button[type="close"] {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background-color: unset;
+    border: unset;
+    cursor: pointer;
+}
+
+.item-card__modal {
+    display: flex;
+}
+
+.item-card__img-wrap {
+    flex-basis: 40%;
+    min-width: 40%;
+}
+
+.item-card__meta {
+    flex-grow: 30%;
+}
+.item-card__prices{
+    margin-left: 20px;
+}
+
+.item-card__modal h3 {
+    margin-top: 12px;
+    margin-left: 20px;
+    margin-bottom: 4px;
+    opacity: 0.8;
+
+}
+
+.item-card__modal p {
+    font-weight: 300;
+    margin-left: 30px;
+    margin-right: 30px;
+    color: grey;
+    font-family: Roboto;
+    font-size: 14px;
+    text-align: justify;
+}
+.cartaddmodal{
+    transition: all .5s ease;
+    color: white;
+    font-family: Futura, Trebuchet MS, Arial, sans-serif;
+    margin-top: 0px;
+    cursor: pointer;
+    background-color: #2C3639;
+    border-radius: 0px 0px 4px 4px;
+    border: unset;
+    font-size: 14px;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    width: 58%;
+    margin-top: 10px;
+    margin-left: 70px;
+
+}
+.cartaddonmodal{
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-left: 70px;
+}
+
+
+@media (min-width: 768px) {
+    .modal {
+        width: 40rem;
+        left: calc(50% - 20rem);
+    }
+}
+
+@keyframes slide-down {
+    from {
+        opacity: 0;
+        transform: translateY(-2rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
