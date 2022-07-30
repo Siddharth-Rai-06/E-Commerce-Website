@@ -1,7 +1,8 @@
 import Modal from "../UI/Modal";
 import { Fragment, useState } from "react";
+import CartItem from "./CartItem";
 
-const Cart = ({ count }) => {
+const Cart = ({ count , items }) => {
 
     const [showModal, setShowModal] = useState(false);
     const handleModal = () => {
@@ -23,25 +24,11 @@ const Cart = ({ count }) => {
                         <div className="checkout-modal_list">
                         {
                             count>0 ? 
-                            <div className="checkout-modal_list-item">
-                            <div className="checkoutimg-wrap">
-                                <img src={"/assets/placeholder.png"}  className="checkoutimg" alt="placeholder"></img>
-                            </div>
-                            <div className="information">
-                                <div>
-                                    <h4>Title Of Products</h4>
-                                    <div id="checkoutprice" className="pricing">
-                                        <span><strong>2000</strong> &nbsp;</span>
-                                        <small><strike>2500</strike></small>
-                                    </div>
-                                </div>
-                                <div className="cart-addon cartaddonmodal">
-                            <button className="button-cart" ><span>-</span></button>
-                            <span className="counter">{0}</span>
-                            <button className="button-cart" ><span>+</span></button>
-                        </div>
-                            </div>
-                        </div>
+                            items.map(item =>{
+                                return(
+                                    <CartItem data={item} key={item.id}/>
+                                )
+                            })
                         :
                         <div className="empty-cart">Please Add Something To Your Cart</div>
                         }
@@ -53,7 +40,13 @@ const Cart = ({ count }) => {
                             <div className="checkout-modal_footer">
                                 <div className="totalAmount">
                                     <h4>Total Amount:</h4>
-                                    <h4>2000 INR</h4>
+                                    <h4>
+                                    {
+                                        items.reduce((prevValue,currentValue)=>{
+                                            return prevValue+(currentValue.discountedPrice*currentValue.quantity)
+                                            },0)
+                                    }
+                                    &nbsp;INR</h4>
                                     <div className="cartmodalbutton">
                                         <button >Order Now</button>
                                     </div>

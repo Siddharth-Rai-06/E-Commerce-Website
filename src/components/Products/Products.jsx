@@ -8,7 +8,6 @@ function Products({onAddItem, onRemoveItem}) {
 
     const [items, setItems] = useState([]);
     const [loader,setLoader]=useState(true);
-    const [presentItems, setPresentItems]=useState([])
 
 
     useEffect(() => {
@@ -20,6 +19,7 @@ function Products({onAddItem, onRemoveItem}) {
                 const transformedData = data.map((item, index) => {
                     return {
                         ...item,
+                        quantity:0,
                         id: index
                     }
     
@@ -42,22 +42,32 @@ function Products({onAddItem, onRemoveItem}) {
         fetchitems();
     }, [])
 
-    const handleAddItem=(id)=>{
-        if(presentItems.indexOf(id)>-1){
-            return;
-        }
-        setPresentItems([...presentItems,id])
-        onAddItem();
+    const handleAddItem=id=>{
+        // if(presentItems.indexOf(id)>-1){
+        //     return;
+        // }
+        // setPresentItems([...presentItems,id])
+        let data=[...items]
+        let index=data.findIndex(i => i.id===id)
+        data[index].quantity+=1;
+        setItems([...data])
+        onAddItem(data[index]);
 
     }
-    const handleRemoveItem=(id)=>{
-        let index=presentItems.indexOf(id)
-        if(index>-1){
-            let items=[...presentItems]
-            items.splice(index,1)
-            setPresentItems([...items])
+    const handleRemoveItem=id=>{
+        // let index=presentItems.indexOf(id)
+        // if(index>-1){
+        //     let items=[...presentItems]
+        //     items.splice(index,1)
+        //     setPresentItems([...items])
+        // }
+        let data=[...items]
+        let index=data.findIndex(i => i.id===id)
+        if(data[index].quantity !==0){
+            data[index].quantity-=1;
+            setItems([...data])
+            onRemoveItem(data[index]);
         }
-        onRemoveItem();
 
     }
 

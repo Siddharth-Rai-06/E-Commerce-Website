@@ -1,6 +1,6 @@
 import React from "react";
 import Cart from "../Cart/cartindex"
-function Header({count}) {
+function Header({itemCount , items}) {
   return (<div>
     <nav className="navbar">
 
@@ -37,7 +37,7 @@ function Header({count}) {
           </li>
           <li><a href="/">Miscellaneous</a></li>
           <li><a href="/"><img className="wishlist" src={"assets/wishlist.png"} alt="text"></img></a></li>
-          <Cart count={count}></Cart>
+          <Cart count={itemCount} items={items}></Cart>
         </div>
       </ul>
     </nav>
