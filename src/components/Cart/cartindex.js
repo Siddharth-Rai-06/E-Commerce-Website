@@ -1,12 +1,18 @@
 import Modal from "../UI/Modal";
 import { Fragment, useState } from "react";
 import CartItem from "./CartItem";
+import OrderSuccessModal from "../UI/OrderSuccess";
 
-const Cart = ({ count , items }) => {
+const Cart = ({ count , items , onHandleEvent}) => {
 
     const [showModal, setShowModal] = useState(false);
+    const [orderModal, setOrderModal]=useState(false);
     const handleModal = () => {
         setShowModal(prevValue => !prevValue)
+    }
+    const handleOrderModal=()=>{
+        setShowModal(false);
+        setOrderModal(prevValue => !prevValue )
     }
 
     return (
@@ -26,7 +32,11 @@ const Cart = ({ count , items }) => {
                             count>0 ? 
                             items.map(item =>{
                                 return(
-                                    <CartItem data={item} key={item.id}/>
+                                    <CartItem data={item}
+                                    key={item.id}
+                                    onEmitIncreaseItem={ id => onHandleEvent(id, 1)}
+                                    onEmitDecreaseItem={id=> onHandleEvent(id , -1)}    
+                                    />
                                 )
                             })
                         :
@@ -48,13 +58,17 @@ const Cart = ({ count , items }) => {
                                     }
                                     &nbsp;INR</h4>
                                     <div className="cartmodalbutton">
-                                        <button >Order Now</button>
+                                        <button onClick={handleOrderModal}>Order Now</button>
                                     </div>
                                 </div>
                             </div>
                         }
                     </div>
                 </Modal>
+            }
+            {
+                orderModal && 
+                <OrderSuccessModal onClose={handleOrderModal}></OrderSuccessModal>
             }
         </Fragment>
     )

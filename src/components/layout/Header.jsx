@@ -1,6 +1,6 @@
 import React from "react";
 import Cart from "../Cart/cartindex"
-function Header({itemCount , items}) {
+function Header({itemCount , items , onHandleEvent}) {
   return (<div>
     <nav className="navbar">
 
@@ -37,7 +37,7 @@ function Header({itemCount , items}) {
           </li>
           <li><a href="/">Miscellaneous</a></li>
           <li><a href="/"><img className="wishlist" src={"assets/wishlist.png"} alt="text"></img></a></li>
-          <Cart count={itemCount} items={items}></Cart>
+          <Cart count={itemCount} items={items} onHandleEvent={onHandleEvent}></Cart>
         </div>
       </ul>
     </nav>

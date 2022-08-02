@@ -7,6 +7,10 @@ import Header from "./layout/Header";
 function App(){
 
   const [cartItems,setCartItems]=useState([]);
+  const [eventQueue, setEventQueue]=useState({
+  id:"",
+  type:""    
+  })
 
   const handleAddItem =(item)=>{
     let items=[...cartItems]
@@ -31,11 +35,18 @@ function App(){
     }
     setCartItems([...items])
 }
+//type=== -1 : decrease
+//type=== 1 : increase
+  const handleEventQueue=(id,type)=>{
+    setEventQueue({
+      id,type
+    })
+  }
 
   return (
   <div>
-  <Header itemCount={cartItems.length} items={cartItems}></Header>
-  <Products onAddItem={handleAddItem} onRemoveItem={handleRemoveItem}></Products>
+  <Header itemCount={cartItems.length} items={cartItems} onHandleEvent={handleEventQueue} ></Header>
+  <Products onAddItem={handleAddItem} onRemoveItem={handleRemoveItem} eventState={eventQueue}></Products>
     
   </div>
   );

@@ -84,3 +84,24 @@ h4:first-child {
     display: flex;
     margin-right: 8px;
 }
+.order-container {
+    display: flex;
+    align-content: center;
+    vertical-align: middle;
+    min-height: 350px;
+}
+.order-container--success {
+    margin: auto;
+    text-align: center;
+}
+#orderimg{
+    max-width: 200px;
+}
+.message h1{
+    margin: 8px 0 0 0;
+    color:#AC7088;
+}
+.message span{
+    margin-top:8px;
+    color:#AC7088;
+}
