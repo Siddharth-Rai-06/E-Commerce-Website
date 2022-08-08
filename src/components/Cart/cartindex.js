@@ -1,25 +1,42 @@
 import Modal from "../UI/Modal";
-import { Fragment, useState } from "react";
+import { Fragment, useDebugValue, useState } from "react";
 import CartItem from "./CartItem";
 import OrderSuccessModal from "../UI/OrderSuccess";
+import { useDispatch, useSelector } from "react-redux/es/exports";
+import { addItemHandler, clearCartHandler, removeItemHandler } from "../../actions";
 
-const Cart = ({ count , items , onHandleEvent}) => {
+const Cart = () => {
 
     const [showModal, setShowModal] = useState(false);
     const [orderModal, setOrderModal]=useState(false);
+    const items=  useSelector(state => state.items)
+    const totalAmount=useSelector(state => state.totalAmount)
+    const dispatch=useDispatch();
+
     const handleModal = () => {
         setShowModal(prevValue => !prevValue)
     }
     const handleOrderModal=()=>{
         setShowModal(false);
+        dispatch(clearCartHandler())
         setOrderModal(prevValue => !prevValue )
+    }
+
+    const dispatchEvents=(type, item)=>{
+        if(type === 1){
+            dispatch(addItemHandler(item))
+
+        }
+        else if(type === -1){
+            dispatch(removeItemHandler(item.id))
+        }
     }
 
     return (
         <Fragment>
             <div onClick={handleModal}>
                 <li><a ><img src={"assets/shopping-cart.png"} alt="text"></img>
-                    <span className='badge badge-warning' id='lblCartCount'> {count} </span>
+                    <span className='badge badge-warning' id='lblCartCount'> {items.length} </span>
                 </a></li>
             </div>
             {
@@ -29,13 +46,13 @@ const Cart = ({ count , items , onHandleEvent}) => {
                         <h2>checkout Modal</h2>
                         <div className="checkout-modal_list">
                         {
-                            count>0 ? 
+                            items.length>0 ? 
                             items.map(item =>{
                                 return(
                                     <CartItem data={item}
                                     key={item.id}
-                                    onEmitIncreaseItem={ id => onHandleEvent(id, 1)}
-                                    onEmitDecreaseItem={id=> onHandleEvent(id , -1)}    
+                                    onEmitIncreaseItem={ item => dispatchEvents(1, item)}
+                                    onEmitDecreaseItem={item=> dispatchEvents(-1, item)}    
                                     />
                                 )
                             })
@@ -46,16 +63,12 @@ const Cart = ({ count , items , onHandleEvent}) => {
                             
                         </div>
                         {
-                            count>0 &&
+                            items.length>0 &&
                             <div className="checkout-modal_footer">
                                 <div className="totalAmount">
                                     <h4>Total Amount:</h4>
                                     <h4>
-                                    {
-                                        items.reduce((prevValue,currentValue)=>{
-                                            return prevValue+(currentValue.discountedPrice*currentValue.quantity)
-                                            },0)
-                                    }
+                                    {totalAmount}
                                     &nbsp;INR</h4>
                                     <div className="cartmodalbutton">
                                         <button onClick={handleOrderModal}>Order Now</button>

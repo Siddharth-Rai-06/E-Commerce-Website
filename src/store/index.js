@@ -1,13 +1,14 @@
 import { applyMiddleware, compose, legacy_createStore as createStore} from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
+import mainReducer from "../Reducers";
 
 const rootReducer =(state,action )=> {
     return state
 }
 
 const store=createStore(
-    rootReducer,
+mainReducer,
     {
         items:[],
         totalAmount:0

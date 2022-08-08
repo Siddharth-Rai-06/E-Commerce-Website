@@ -1,25 +1,23 @@
 import React, { useState } from "react";
+import { useSelector , useDispatch} from "react-redux";
+import { addItemHandler , removeItemHandler} from "../../../actions";
 
 import Modal from "../../UI/Modal";
-function ListItems({ data, onAdd, onRemove}) {
+function ListItems({ data}) {
     // const [pointer, setPointer] = useState(0);
     const [showModal, setShowModal] = useState(false);
+    const item=useSelector(state => state.items.find(item => item.id === data.id ))
+    const dispatch= useDispatch();
 
     const increasePointer = event => {
         // event.stopPropogation()
-        onAdd(data.id)
-        // setPointer(pointer + 1);
-    }
+        dispatch(addItemHandler(data))
+    }    
+
     const decreasePointer = event => {
         // event.stopPropogation()
-        onRemove(data.id)
-        // if (pointer === 0) {
-        //     return;
-        // }
-        // if(pointer===1){
-        //     onRemove(data.id)
-        // }
-        // setPointer(pointer - 1);
+        dispatch(removeItemHandler(data.id))
+
     }
 
     const HandleModal = () => {
@@ -45,7 +43,7 @@ function ListItems({ data, onAdd, onRemove}) {
 
                 </div>
                 {
-                    data.quantity< 1 ?
+                    !item || item?.quantity< 1 ?
                         <button className="buttonTag" variant="contained" onClick={increasePointer}>
                             <span className="add-item">Add to cart&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <span >🛒</span>
@@ -54,7 +52,7 @@ function ListItems({ data, onAdd, onRemove}) {
                         :
                         <div className="cart-addon">
                             <button className="button-cart" onClick={decreasePointer}><span>-</span></button>
-                            <span className="counter">{data.quantity}</span>
+                            <span className="counter">{item.quantity}</span>
                             <button className="button-cart" onClick={increasePointer}><span>+</span></button>
                         </div>
 
@@ -80,7 +78,7 @@ function ListItems({ data, onAdd, onRemove}) {
                     </div>
                     <p>{data.description}</p>
                     {
-                        data.quantity < 1 ?
+                        !item || item?.quantity < 1 ?
                         <button className="buttonTag cartaddmodal" variant="contained" onClick={increasePointer}>
                             <span className="add-item">Add to cart&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <span >🛒</span>
@@ -89,7 +87,7 @@ function ListItems({ data, onAdd, onRemove}) {
                         :
                         <div className="cart-addon cartaddonmodal">
                             <button className="button-cart" onClick={decreasePointer}><span>-</span></button>
-                            <span className="counter">{data.quantity}</span>
+                            <span className="counter">{item.quantity}</span>
                             <button className="button-cart" onClick={increasePointer}><span>+</span></button>
                         </div>
 

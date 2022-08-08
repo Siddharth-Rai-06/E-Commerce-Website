@@ -1,4 +1,15 @@
+// import { useSelector , useDispatch} from "react-redux";
+
 const CartItem = ({ data , onEmitDecreaseItem , onEmitIncreaseItem }) => {
+
+
+    // const item=useSelector(state => state.items.find(item => item.id===data.id))
+    // const dispatch=useDispatch()
+     
+    // items.dispatch({
+
+    // })
+
     return (
         <div className="checkout-modal_list-item">
             <div className="checkoutimg-wrap">
@@ -13,9 +24,9 @@ const CartItem = ({ data , onEmitDecreaseItem , onEmitIncreaseItem }) => {
                     </div>
                 </div>
                 <div className="cart-addon cartaddonmodal" id="cartaddbutton">
-                    <button className="button-cart" onClick={()=> onEmitDecreaseItem(data.id)} ><span>-</span></button>
+                    <button className="button-cart" onClick={()=> onEmitDecreaseItem(data)} ><span>-</span></button>
                     <span className="counter">{data.quantity}</span>
-                    <button className="button-cart" onClick={()=> onEmitIncreaseItem(data.id)} ><span>+</span></button>
+                    <button className="button-cart" onClick={()=> onEmitIncreaseItem(data)} ><span>+</span></button>
                 </div>
             </div>
             <br></br>
