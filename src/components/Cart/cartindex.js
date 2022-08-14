@@ -1,5 +1,5 @@
 import Modal from "../UI/Modal";
-import { Fragment, useDebugValue, useState } from "react";
+import { Fragment, useState } from "react";
 import CartItem from "./CartItem";
 import OrderSuccessModal from "../UI/OrderSuccess";
 import { useDispatch, useSelector } from "react-redux/es/exports";

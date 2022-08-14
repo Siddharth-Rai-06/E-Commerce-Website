@@ -62,6 +62,7 @@ function ListItems({ data}) {
 
 
             </div>
+
             {showModal && <Modal onClose={HandleModal} >
                 <div className="item-card__modal">
                     <div className="item-card__img-wrap">
